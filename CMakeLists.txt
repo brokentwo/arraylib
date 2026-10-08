@@ -50,3 +50,13 @@ if (BUILD_TESTING)
     target_compile_options(test_integration PRIVATE -UNDEBUG)
     add_test(NAME integration COMMAND test_integration)
 endif()
+
+# ---- Пример по варианту ----
+add_executable(variant_05 examples/variant_05.cpp)
+target_link_libraries(variant_05 PRIVATE arraylib)
+if (APPLE)
+    set_target_properties(variant_05 PROPERTIES BUILD_RPATH "@loader_path")
+else()
+    set_target_properties(variant_05 PROPERTIES BUILD_RPATH "$ORIGIN")
+endif()
+set_target_properties(variant_05 PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
